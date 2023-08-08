@@ -1,0 +1,9 @@
+design puzzles
+
+42/78pdf  guitar tester , add num of strings , and delegate the search method from inventory to the spec class
+
+155/191pdf bark recognizer
+
+192/228pdf dog door simulator
+
+
