@@ -1,0 +1,59 @@
+day#30 ooa&d headfirst
+
+continue iteration 1 (last part of implementation - the testing)
+start iteration 2 (second use case)
+
+what is the second usecase ??
+the user uses INITIATE the search method from the inventory
+(the user is an actor/ an external initiator for this use case)
+
+how would you implement the search??
+take the  list of all instruments in the inventroy
+loop over them
+for each one 
+compare to the search criteria
+(the array  [instead of map in java])
+
+if any mismatch, return false
+else if all true(matched)
+append to the  list of matching instruments 
+and after the loop 
+return the  list of matching instruments
+
+so, search takes in , search  criteria (an array)
+returns a list of instrument objects
+
+===========
+iteration#2
+the search use case
+
+requirements (use case DONE, requirements list, )
+requirements list:
+- inventroy can search for instrument by properties
+and return all matching instruments (not just the first one)
+
+
+analysis:
+textual analysis ??? 
+search -> verb-> candidate method
+inventory &  instruments are already classes
+
+design
+just add the search  method to the inventory class
+
+implementation
+let's gooo
+
+finished 
+
+next steps??
+
+:/
+the Gary game framework
+and the subway  system :D
+
+I haven't used any abstract classes so far :/
+
+nor interfaces
+I need to apply on them !!
+nor did I create  a complicated class diagram 

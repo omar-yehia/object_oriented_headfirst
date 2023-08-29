@@ -1,0 +1,69 @@
+cont. day#28
+
+feature list
+use case diagram
+breaking up the problem  (modules)
+understanding the problem
+requirements (use cases , requirements list)
+domain analysis (textual)
+preliminary design (class diagram)
+implemenetation
+
+-------------------
+last thing was
+properties map
+why didn't he use it in the guitar / instrument example??
+
+correcting: he DID use the map at the last step 
+
+ok lets move on
+next step is ?? class diagrams
+lets use a tool for  creating the diagrams
+draw.io
+
+Instrument
+----------------------
+id:integer
+price:double
+properties:map
+
+
+inventory
+------------
+instruments:List[*]
+___________________
+search(map)
+
+
+
+======================================================================
+
+
+next step?? 
+implementation  :D
+
+use-case drivin, feature drivin,  test drivin? :)
+
+
+use case drivin
+1- admin add instrument
+create instrument class
+create inventroy  class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+Inventory
+addInstrument(String, double, InstrumentSpec)
+get(String): Instrument
+search(InstrumentSpec): Instrument [*]
+
+Instrument
+serialNumber: String
+price: double
+specs:InstrumentSpec
+getSerialNumber(): String
+getPrice(): double
+setPrice(float)
+getSpec(): InstrumentSpec
+
+InstrumentSpec
+properties: Map
+getProperty(String): Object
+getProperties(): Map
+matches(InstrumentSpec): boolean
+
+--------------------
+Inventory
+addInstrument(String, double, InstrumentSpec)
+get(String): Instrument
+search(Map): Instrument [*]
+
+Instrument
+serialNumber: String
+price: double
+properties:Map
+getSerialNumber(): String
+getPrice(): double
+setPrice(float)
+getProperty(String): Object
+getProperties(): Map
+matches(Map): boolean

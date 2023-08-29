@@ -1,0 +1,42 @@
+day#29
+
+next step?? 
+implementation  :D
+
+use-case drivin, feature drivin,  test drivin? :)
+
+
+use case drivin
+1- admin add instrument
+create instrument class
+create inventory  class
+
+
+Inventory
+addInstrument(String, double, InstrumentSpec)
+get(String): Instrument
+search(array): Instrument [*]
+
+ 
+Instrument
+serialNumber: String
+price: double
+properties:array
+
+getSerialNumber(): String
+getPrice(): double
+setPrice(float)
+getProperty(String): Object
+getProperties(): array
+matches(Map): boolean
+
+==================================
+
+now I need to make test cases 
+to test each functionality
+
+-> what is the functionality that I would like to test right now???
+
+the first use case 
+adding an instrument to the inventory
+(using the init inventroy method)

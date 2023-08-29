@@ -1,0 +1,131 @@
+doog barks
+the  owner presses a button on a remote controller
+to open the dog door
+the  door is opened for a specific amount of time
+
+or the dog sensor can hear the dog bark and recognize its bark if it is valid the recognizer opens the door also temporarily for a timer
+the door is closed automatically after timer is over
+
+
+
+
+feature list
+1- dog door can be opend by a remote control
+2- dog door can be opend by a bark recognizer device
+3- dog door closes automatically after a specific amount of time
+4- remote has a button to open and close the door (if not already closed)
+5- bark recognizer has some barks saved as valid, those are the  ones accepted 
+
+
+use case diagrams
+actors:
+1- dog
+2- dog owner
+
+use case titles ?
+recognizer open the door
+press button to open/close the door
+
+dog interacts with  the recognizer , it is the external initiator that initiate the recognizing process
+dog owner interacts with the remote, it is the external initiator that starts the button press process /method
+
+
+
+
+
+breaking  up the  problem
+first use case
+dog barks
+device recognizes bark (compares the bark against saved barks)
+device send message to door calling the open method
+the door opens ITSELF
+
+second use case
+owner press the button 
+the remote sends a message to the door to open itself 
+or close itself if it is open
+
+in both cases the door closes automatically after some timeout
+
+
+
+
+
+
+understanding the problem well
+?? what else ??
+
+iteration #1
+bark recognizer
+
+requirements
+a device to recognize the bark
+device can have some barks saved
+device can compare input barks to saved barks
+device can send a message to the door to open itself
+
+
+analysis
+textual analysis
+device class 
+bark??
+validateBark method
+door class 
+open method
+close method
+
+
+design
+
+Device
+---------
+barks:array
+door:Door
+addBark  -> no need to do that , as we are going to provide them in the constructor
+validateBark:bool
+openForBark(string):void
+
+Door
+----------------
+________________
+open():void
+close():void
+
+
+
+implementation
+ok lets go
+make the Door , Device classes
+and their methods and  attributes
+
+ok now lets test this functionality
+
+:)
+
+=====================
+iteration #2
+the second use case
+the owner presses the remote button 
+to open the door 
+or close if already opened :D
+
+- requirements
+- analysis
+- design
+- implementation
+
+requirements list?
+system has a remote
+remote has a button
+on button press, sends message to the  door to open , or send message to close if already opened
+
+2-analysis
+textual analysis
+nouns: remote,button, door already a class 
+verbs: press button, send message , open & close already methods in door
+
+design: nothing ,just the remote class with the pressButton method
+
+implementation
+testing
+

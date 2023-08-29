@@ -1,0 +1,12 @@
+instrument get serialNumber by itself
+get price by itself
+getProperty
+properties
+
+instrument matches (compares between another instrument and) itself??
+
+------
+inventroy
+addInstrument by itself
+get instrument by itself
+searches for instrument by itself
