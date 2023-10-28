@@ -1,0 +1,304 @@
+ok today is day  #31
+let's see the Gary game system
+(what if he said, this project is about making a GAME -not a game framework-)
+
+
+
+cycle
+feature list
+1- system can create a board
+2- board consists of cells which are called (tiles)
+3- each tile can have a specific terrain
+4- system has units
+5- units of different players can fight
+6- the battle is turn-based
+7- board can be 3d !!
+
+
+use case diagram
+actor: game designer
+actions? create a board game
+
+use case diagram has nothing actually :/ just one title
+
+
+##### breaking up the problem
+
+partitioning the project into modules
+and using architectural design patterns like MVC
+
+I woud say we make one basic module
+game module (includes board,tile,terrain,unit)
+graphic/view??? respobsible for representing the game visually (the view in MVC)
+
+he made 3 basic parts of course, the view model and controller
+view => graphic module
+model=> board module, and the  unit module
+he didn't make a specific module for the tile, nor for the terrain (maybe because they are much simpler, where on the 
+other hand,  the unit module is big, and also the board module??)
+but wait wait, I don't think the  board needs a module ... why???
+units are really the big real deal, 
+because there are many units, and multiple relationships, and complex functionalities
+like movement, fighting, the relation between the tile terrain  and the  unit movement
+... and so on
+
+finally, I  would  make a unit module
+but, what about the other stuff? like the board?
+wait wait, when you want to know which stuff to be grouped into a module and  which not
+think  in terms  of packages, do you think  that it is a good idea to have the board as a package?
+the unit as a package ?
+
+classes=> board, unit, tile, terrain??
+game , player???
+board=> 2d,3d
+has tiles
+has the units
+
+module for the board
+module for units
+why there are no modules for the tile or terrain??
+
+
+##### understanding the problem
+definitions:
+what is a board?
+the board is just a grid
+a 2d grid , or 3d
+and as a datastructure to store it , we would use arrays (2d or 3d)
+if it is just one board, no need for the id
+if it is a 3d board grid
+then the coordinates are going to be the id, that tells you which board are you using currently
+
+terrain? just a texture image (visually),
+it has minor properties like color , texture image, roughness of surface, 
+the id for the terrain is its name :) for example : "sand" or "quick sand"
+
+tile? doesn't need to have a class?? it is just a cell in the board array???
+right??? nooooooo nnooo
+because the tile can HAVE (OWN) a terrain !!
+where would you store that ?? do it in an object 
+so the properties of the tile are .... just the coordinates x,y(,z) point and the terrain type
+the (id) for the tile, is its coordinates :)
+
+unit?
+oof , many many things can be a unit
+soldiers, tanks, airplanes, submarines, troopers,....
+a unit has a name? id ? health points, has weapons?? speed , strength of attack
+
+
+relations among the system components
+unit & tile?? depending on the terrain type, the unit speed is affected
+and also some terrains are forbidden for some units
+for example: tanks can't go to a deep water tiles
+air planes with mountsains for example
+
+as for the speed, surface of the tile has a factor to increase or decrease the speed of a specific type of units
+for example: tanks are faster on concret roads that on sand than on dirt
+
+unit & board:
+each unit can be assigned to a position on the board (a specific tile with its coordinate)
+each unit can Move to another tile (also by it's coordinate)
+when enemy units meet in the same tile , they fight , and the strongest wins (by subtracting the attack strength from the health points of the enemy :) )
+when a unit looses, it is removed from its tile (removed from this coordinate- deleted)
+when all the units of a player loose(all are deleted) then he lost the game and the other player wins
+
+requirements
+what are our use cases ???
+create game? :/
+
+
+requirements list
+1- user can create board
+can create a 2d,or 3d array
+can fill it with tile objects (which aggregate terrain object)
+
+
+2- user can create terrains
+3- user can create tiles with specific terrain
+4- user can create units
+5- each unit can be assigned a list of weapons
+6- units can battle another player's units 
+
+
+analysis
+textual analysis to get candidate classes and methods
+classes?? nouns: board, unit, terrain, tile
+methods?? verbs: 
+    #board:
+    add unit, remove unit(remove an individual), remove units(remove all of them from the tile),
+    
+    #unit: 
+    addWeapon, removeWeapon(specific individual), removeWeapons(all), move(x,y,z), takeDamge/ decreaseHealth(incoming attack power),
+    increaseHealth(amount)
+    attack(????)
+
+    how would the unit attack?? just be attacking one of the units in the same tile??
+    what if there were like 3 enemy units in the same tile, and they can destroy me if all attacked,
+    but I can destroy the weakest of them in this one turn shot (the game is turn based) so the optimal choice is to attack the weakest to delete it 
+    or??? to attack the strongest to make it weaker?? so that my fellows come after me to finish him ??
+
+    so, is there a method for SELECTING the target???? :O 
+
+    fight?? 
+    who does the calculations of damages??? the game or the unit??? I think the game :)
+    each unit is responsible for calculating it OWN damage :D
+
+    #tile:
+    addUnit? :/ wait wait adding the unit to the tile should be the tile's responsiblity because it handles itself
+    and also can be the game/ or board ? responsibility ? you don't have a game class, right? but  why not 
+    he used both the tile and then used that in the board :D
+
+    ok what else ???? the tile can remove unit , remove all units , what else?
+    I think this is ok lets move on
+
+    #terrain: ? :/ no methods
+
+    sorry I have to continue for a while without talking
+    so , where were I ? oh the candidate methods 
+    adding the unit to the tile , is mainly the tile's job
+    anyone who want to do that needs to use the tile's method :)
+    and that is what he did , he used it in the board class
+
+    ############
+    design
+    I need to make the class diagrams
+    what are your classes??
+    board
+    tile
+    terrain
+    unit (this is really really a big thing right? :/ I want to take good design decisions)
+    
+    
+    ok let's write down firs the details then draw the class diagrams
+
+    the main thing is the board
+    
+    Board
+    ------------------
+    tiles:array[*][*]
+    ------------------
+    addUnit(int,int,Unit):void
+    removeUnit(int,int,id):void
+
+    addUnits(int,int,array):void [array of Unit objects]
+    removeUnits(int,int,array):void  [array of ids]
+
+    getTiles():array [of Tile objects]
+
+
+    Tile
+    --------------------------------
+    point:pair/array whatever
+    terrain:Terrain [one]
+    --------------------------------
+    setTerrain(Terrain):void
+    getTerrain():Terrain
+    setPoint():void
+    getPoint():pair/array whatever
+
+    Terrain
+    ----------------
+    name:string
+    //textureImagePath:string
+    //speedFactor:float
+    ----------------
+    getName():string
+    //setImgPath(string):void
+    //getImgPath():string
+    //getFactor():float
+
+
+    Unit
+    ---------------
+    id:string
+    disallowedTerrains:array [of Terrain types]
+    weapons:array [of Weapon objects]
+    ---------------
+    getDisallowedTerrains():array
+    getId():string
+
+
+    Weapon
+    --------------
+    
+
+
+
+
+
+
+
+    -------------------------
+    ------- Thinking --------
+    -------------------------
+    dimension?? ahmmmmm ..... :/ I am not sure about this let's just assume that it is only 2d 
+    :/ then think later about the 3d
+    sorry :D 
+    I changed the  keyboard so a slight change happened
+
+    ok what is in a board??
+    a 2d array of tiles
+    what else? :/ I don't remeber. lets have a look at what we wrote before
+    thats it , I think we can move on to the methods
+    should I remove the unit by id? and also using the x and y to get the tile containing the unit
+    but what about removing all of them? actually that is much easier 
+    wait, I had a case in my mind but don't remember what it was ? :/
+    
+    what should I store in the tile?? a list of Unit objects, or just their ids??? (smaller storage/memory)
+    and when you want to access the unit object, take the id, search with it in the board's units list :O
+    offf no way
+    there can be hundreads of units in the same game ?? (ok maybe not that much but still may be many units)
+    why go search each time :O that would consume time 
+    but what am I saving in the tile, a COPY??? of the object ??? or a REFERENCE ???
+    can objects be Referenced ??
+
+    will, if you create a new instance that would be a completely different object
+    but if you just pass the object itself , it should be referenced :/ 
+    lets try
+    :D
+    yes by Reference !
+    who said anything about creating a New one??? why did you assume that??
+    anyways, this is a good question, ""when"" are units created?????
+    after the game starts? or before ? or both ??:/
+    anyways creating them without assigning them to a tile to EXIST, doesn't have any meaning (I think)
+    so, we will return to the same point, that in order to pass a unit object to the tile, you (this is obvious) 
+    you need to first Create the object then pass it (tadaaa)
+
+    ==============
+    as for the  terrain I don't need a setter for the name, as it is going to be  passed in the  constructor
+    Question) how can I make the association between the terrain type and the allowed units on that terrain
+
+    the feature of having valid and invalid movements, would it be because
+    a terrain has a list of valid unit types ?
+    or , a unit has a list of valid terrain types??
+
+    I think this has two ways of thinking
+    think in terms of reality, the unit is allowed on some terrains and disallowed on the other
+    on the other hand, a practical approach , I just need to minimize the storage/memory  I use
+    so look which association would bring the smallest amount of memory?
+    how many unit types and how many terrain types are there? which is much more than the other??
+    I guess terrain types are more LIMITED than unit types
+    so, who goes to whom?
+    :O offff 
+    another aspec 
+    what if you add a new terrain type???
+    or a new unit type???? 
+    would you need to change a lot ???
+
+    I have a small sense , that ... this need to be coded to interface not to implementation 
+    for example, each terrain  has some valid unit category :O
+    for example the airborne category is not valid on grass or sand :O offf no it is!!! when they are not flying !!!
+    ok another example: tanks are not allowed into water 
+    so you can  make the  water tile 
+
+    terrain has a list of disallowed units?
+    or unit has a list of disallowed terrains?
+
+
+
+    implementation
+
+
+
+
+

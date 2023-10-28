@@ -1,0 +1,20 @@
+Gary game system
+
+it is a system
+used by game designers
+to build board games
+so the most essential thing here is the BOARD
+the  board visually is like a chess board for example
+a 2d grid
+as a data structure, we will use a 2d array (or 3d if you want a 3d board system)
+
+board has cells
+each cell is called a tile
+each tile has a type  of material called terrain 
+
+there are units (like soldiers, tanks, airplanes....)
+the units can be on a tile on the board
+can  move from tile to tile
+some moves are forbidden / not allowed
+units can fight each other
+it is a turn-based game 
